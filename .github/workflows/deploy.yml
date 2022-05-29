@@ -22,8 +22,8 @@ jobs:
       - name: Use cached node_modules
         uses: actions/cache@master
         with:
-          path: node_modules
-          key: nodeModules-${{ hashFiles('**/package-lock.lock') }}
+          path: ./typescript/simple-mercari-web/node_modules
+          key: nodeModules-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             nodeModules-
       - name: Install dependencies
