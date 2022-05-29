@@ -32,7 +32,7 @@ func init() {
             password STRING
         );
 		CREATE TABLE IF NOT EXISTS [items] (
-			id INTEGER PRIMARY KEY NOT NULL AUTOINCREMENT,
+			id INTEGER PRIMARY KEY AUTOINCREMENT,
 			name STRING,
 			category STRING,
 			image STRING,
