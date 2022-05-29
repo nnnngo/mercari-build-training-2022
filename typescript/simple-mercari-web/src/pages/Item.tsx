@@ -5,9 +5,8 @@ const server = process.env.API_URL || 'http://127.0.0.1:9000';
 
 export const Item: React.FC<{}> = () => {
     const {itemId} = useParams();
-    const [itemName, setItemName] = useState("")
-    const [itemCategory, setItemCategory] = useState("")
-    const [itemImage, setItemImage] = useState("")
+    const [itemName, ] = useState("")
+    const [itemImage, ] = useState("")
     const fetchItems = () => {
         fetch(server.concat('/items/' + itemId),
             {
@@ -60,7 +59,7 @@ export const Item: React.FC<{}> = () => {
         <div>
             <h2>{itemName}</h2>
             {/*<div>{itemCategory}</div>*/}
-            <img src={fetchImage(itemImage)}/>
+            <img src={fetchImage(itemImage)} alt={itemName + "の画像"}/>
 
             <Link to={"/"}>
                 <div>もどる</div>

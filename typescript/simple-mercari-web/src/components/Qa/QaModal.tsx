@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {QaList} from "./QaList";
 
 export const QaModal = (props: { showFlag: any; setShowQaModal: any; }) => {

@@ -68,7 +68,7 @@ export const ItemList: React.FC<{}> = () => {
                     <div key={item.id} className='ItemList'>
                         <Link to={"/item/" + item.id}>
                         {/* TODO: Task 1: Replace the placeholder image with the item image */}
-                            <img src={fetchImage(item.image)}/>
+                            <img src={fetchImage(item.image)} alt={item.name + "の画像"}/>
                         <p>
                             <span>Name: {item.name}</span>
                             <br/>

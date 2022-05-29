@@ -1,11 +1,11 @@
-import {Link, Outlet} from 'react-router-dom';
-import React, {useEffect, useState} from "react";
+import {Outlet} from 'react-router-dom';
+import React, {useState} from "react";
 import {QaModal} from "../components/Qa/QaModal";
 
 // Itemの親コンポーネント
-function qaTest() {
-    console.log("QAをここに作る")
-}
+// function qaTest() {
+//     console.log("QAをここに作る")
+// }
 function ParentItem() {
     const [showQaModal, setShowQaModal] = useState(false); // Modalコンポーネントの表示の状態を定義する
     const showModal = () => {

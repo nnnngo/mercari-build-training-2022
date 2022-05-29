@@ -13,11 +13,11 @@ export const ListingUser: React.FC<{}> = () => {
         setValues({ ...values, [event.target.name]: event.target.value });
     };
 
-    const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setValues({
-            ...values, [event.target.name]: event.target.files![0],
-        })
-    };
+    // const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    //     setValues({
+    //         ...values, [event.target.name]: event.target.files![0],
+    //     })
+    // };
 
     const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
