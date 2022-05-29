@@ -5,6 +5,9 @@ on:
     branches:
       - main
 
+env:
+  API_URL: https://mercari-build-2022-backend-dzpfucpr4q-an.a.run.app
+
 jobs:
   frontend-build:
     name: Build React App
