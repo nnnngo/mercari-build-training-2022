@@ -505,7 +505,6 @@ func (h Handler) AddQa(c echo.Context) error {
 	qa.Answer = c.FormValue("answer")
 	qa.QaTypeId, _ = strconv.Atoi(c.FormValue("qa_type_id"))
 
-    fmt.Println("aaaa",qa)
 	// Validate qa fields
 	if err := c.Validate(qa); err != nil {
 		errs := err.(validation.Errors)
