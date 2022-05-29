@@ -63,6 +63,9 @@ jobs:
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v0
 
+      - name: Configure docker to use the gcloud cli
+        run: gcloud auth configure-docker --quiet
+
       - name: Build a docker image
         run: docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/mercari-build-2022-frontend:${{ github.sha }} . -f ./typescript/simple-mercari-web/.docker/dockerfile.production
 
@@ -81,6 +84,7 @@ jobs:
             --quiet
 
   backend-deploy-to-cloud-run:
+    name: Backend Deploy to Cloud Run
     runs-on: ubuntu-latest
     environment:
       name: Production
