@@ -1,11 +1,19 @@
 import React, {useState} from 'react'
 
-const Negotiation = () => {
-  const [ price, setPrice ] = useState('');
+const Negotiation = (props: { showQaModal: any; setShowQaModal: any; showPriceCut:any; setPriceCutModal:any; isContract:any; setIsContract:any;}) => {
+      const closeModal = () => {
+          props.setShowQaModal(false);
+          props.setIsContract(false);
+          props.setPriceCutModal(false);
+      };
+  const [ price, setPrice ] = useState(0);
     const handleChange = (event:any) => {
     setPrice(event.target.value)
     }
    const handleSubmit = (event:React.MouseEvent) => {
+   //    todo 金額の値を渡して条件分岐する
+           //    成立していたらsetIsContractでvalueをtrue、しなければfalse
+   props.setIsContract(true)
    event.persist()
    event.preventDefault()
    console.log(price)
@@ -19,8 +27,9 @@ return (
         <p>希望金額を入力してください。例: 1000</p>
         <p><input type="text" name="price" value={price} onChange={handleChange}/></p>
         </form>
-{/*          こっちにボタン作成してフォームの情報を維持したい*/}
-        <button onClick={handleSubmit}>次</button>
+{/*       todo   ここの出力を「交渉する」ボタンにしたい*/}
+        <button onClick={closeModal}>閉じる</button>
+        <button onClick={handleSubmit}>交渉する</button>
     </>
   )
 };

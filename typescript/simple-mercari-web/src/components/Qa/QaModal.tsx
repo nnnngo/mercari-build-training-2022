@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {QaList} from "./QaList";
 import Negotiation from './Negotiation'
 
-export const QaModal = (props: { showFlag: any; setShowQaModal: any; }) => {
+export const QaModal = (props: { showQaModal: any; setShowQaModal: any; }) => {
     const closeModal = () => {
         props.setShowQaModal(false);
         setIsContract(false);
@@ -14,14 +14,9 @@ export const QaModal = (props: { showFlag: any; setShowQaModal: any; }) => {
         setPriceCutModal(true);
     };
 
-    const setNegotiation = () => {
-        //    todo 金額の値を渡して条件分岐する
-        //    成立していたらsetIsContractでvalueをtrue、しなければfalse
-        setIsContract(true)
-    }
     return (
         <>
-            {props.showFlag ? ( // showFlagがtrueだったらModalを表示する
+            {props.showQaModal ? ( // showFlagがtrueだったらModalを表示する
                 <div id="overlay" style={{
                     position: "fixed",
                     top: 0,
@@ -50,16 +45,14 @@ export const QaModal = (props: { showFlag: any; setShowQaModal: any; }) => {
                                 {showPriceCut ? (
                                     // 値切りフェースの場合
                                     <>
-                                        <div><Negotiation/></div>
-                                        <button onClick={closeModal}>閉じる</button>
-                                        <button onClick={setNegotiation}>交渉する</button>
+                                        <div><Negotiation showQaModal={props.showQaModal} setShowQaModal={props.setShowQaModal} showPriceCut={showPriceCut} setPriceCutModal={setPriceCutModal} isContract={isContract} setIsContract={setIsContract}/></div>
                                     </>
                                 ) : (
                                     // QAフェーズの場合
                                     <>
                                         <div><QaList/></div>
                                         <button onClick={closeModal}>閉じる</button>
-                                        <button onClick={ShowPriceCutModal}>値切り交渉へ</button>
+                                        <button onClick={ShowPriceCutModal}>値段交渉へ</button>
                                     </>
                                 )}
                             </>

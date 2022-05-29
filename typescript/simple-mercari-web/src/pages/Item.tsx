@@ -65,7 +65,7 @@ export const Item: React.FC<{}> = () => {
             <img src={fetchImage(item.image)} alt={item.name + "の画像"}/>
             <h2>{item.name}</h2>
             <div>商品カテゴリ: {item.category}</div>
-            <h2>{item.price} ¥ </h2>
+            <h2> ¥ {item.price}</h2>
 
             <Link to={"/"}>
                 <div>もどる</div>
