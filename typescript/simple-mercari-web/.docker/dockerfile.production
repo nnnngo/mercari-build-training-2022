@@ -6,6 +6,8 @@ COPY ./typescript/simple-mercari-web /app
 # ---
 FROM fholzer/nginx-brotli:v1.12.2
 
+ENV API_URL=https://mercari-build-2022-backend-dzpfucpr4q-an.a.run.app
+
 WORKDIR /etc/nginx
 ADD ./typescript/simple-mercari-web/nginx.conf /etc/nginx/nginx.conf
 

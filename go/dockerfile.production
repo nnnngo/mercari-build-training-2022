@@ -3,6 +3,7 @@ FROM golang:1.17-alpine
 EXPOSE 80
 
 ENV PORT 8080
+ENV FRONT_URL=https://mercari-build-2022-frontend-dzpfucpr4q-an.a.run.app
 ENV GOPATH /go
 ENV GO111MODULE on
 

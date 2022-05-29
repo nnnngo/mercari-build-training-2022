@@ -26,9 +26,6 @@ jobs:
       - name: Build Development
         run: npm run build
         working-directory: ./typescript/simple-mercari-web
-        env:
-          ENV: production
-          API_URL: https://mercari-build-2022-backend-dzpfucpr4q-an.a.run.app
 
       - name: Archive Production Artifact
         uses: actions/upload-artifact@main
