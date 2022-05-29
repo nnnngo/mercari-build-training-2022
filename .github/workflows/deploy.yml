@@ -31,11 +31,11 @@ jobs:
         uses: actions/upload-artifact@main
         with:
           name: build
-          path: build
+          path: ./typescript/simple-mercari-web/build
 
   frontend-deploy-to-cloud-run:
-    name: Deploy to Cloud Run
-    needs: frontend-build
+    name: Frontend Deploy to Cloud Run
+    needs: build
     runs-on: ubuntu-latest
     environment:
       name: Production
@@ -80,7 +80,7 @@ jobs:
             --allow-unauthenticated \
             --quiet
 
-  backennd-deploy-to-cloud-run:
+  backend-deploy-to-cloud-run:
     runs-on: ubuntu-latest
     environment:
       name: Production
