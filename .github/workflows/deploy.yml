@@ -23,8 +23,8 @@ jobs:
         run: npm ci
         working-directory: ./typescript/simple-mercari-web
 
-      - name: Build Development
-        run: npm run build
+      - name: Build Production
+        run: npm run build_production
         working-directory: ./typescript/simple-mercari-web
 
       - name: Archive Production Artifact
