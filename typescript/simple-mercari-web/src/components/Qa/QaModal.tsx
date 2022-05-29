@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import {QaList} from "./QaList";
+import Negotiation from './Negotiation'
 
 export const QaModal = (props: { showFlag: any; setShowQaModal: any; }) => {
     const closeModal = () => {
@@ -42,23 +43,23 @@ export const QaModal = (props: { showFlag: any; setShowQaModal: any; }) => {
                             // 値引き交渉成立の場合
                             <>
                                 <div>交渉成立</div>
-                                <button onClick={closeModal}>Close</button>
+                                <button onClick={closeModal}>閉じる</button>
                             </>
                         ) : (
                             <>
                                 {showPriceCut ? (
                                     // 値切りフェースの場合
                                     <>
-                                        <div>値切り交渉だよ</div>
-                                        <button onClick={closeModal}>Close</button>
-                                        <button onClick={setNegotiation}>Next</button>
+                                        <div><Negotiation/></div>
+                                        <button onClick={closeModal}>閉じる</button>
+                                        <button onClick={setNegotiation}>交渉する</button>
                                     </>
                                 ) : (
                                     // QAフェーズの場合
                                     <>
                                         <div><QaList/></div>
-                                        <button onClick={closeModal}>Close</button>
-                                        <button onClick={ShowPriceCutModal}>Next</button>
+                                        <button onClick={closeModal}>閉じる</button>
+                                        <button onClick={ShowPriceCutModal}>値切り交渉へ</button>
                                     </>
                                 )}
                             </>
