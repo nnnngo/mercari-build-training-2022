@@ -44,7 +44,7 @@ type Item struct {
 	Category        string `json:"category"`
 	Image           string `json:"image"`
 	Price           int    `json:"price"`
-	PriceLowerLimit int    `json:"price_lowe_limit"`
+	PriceLowerLimit int    `json:"price_lower_limit"`
 	UserId          int    `json:"user_id"`
 }
 
