@@ -72,7 +72,7 @@ func main() {
 		front_url = "http://localhost:3000"
 	}
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
-		AllowOrigins: []string{front_url},
+		AllowOrigins: []string{front_url, "https://mercari-build-2022-frontend-dzpfucpr4q-an.a.run.app"},
 		AllowMethods: []string{http.MethodGet, http.MethodPut, http.MethodPost, http.MethodDelete},
 	}))
 
