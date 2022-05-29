@@ -1,11 +1,12 @@
 FROM golang:1.17-alpine
 
+EXPOSE 80
+
 ENV PORT 8080
 ENV GOPATH /go
 ENV GO111MODULE on
 
 RUN apk update && \
-    apk --no-cache add git && \
     apk add --no-cache sqlite && \
     apk add gcc musl-dev gcompat
 
@@ -20,4 +21,6 @@ RUN go mod tidy
 
 WORKDIR /go/src/go/app
 
-CMD ["go run main.go"]
+RUN go build -o server
+
+CMD ["./server"]
