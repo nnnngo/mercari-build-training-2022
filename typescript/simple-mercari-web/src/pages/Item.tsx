@@ -1,12 +1,21 @@
 import {Link, useParams} from "react-router-dom";
 import React, {useEffect, useState} from "react";
+import internal from "stream";
 
 const server = process.env.REACT_APP_API_URL || 'http://127.0.0.1:9000';
 
+interface Item {
+    id: number;
+    name: string;
+    category: string;
+    image: string;
+    price: number;
+    price_lower_limit: number;
+}
+
 export const Item: React.FC<{}> = () => {
     const {itemId} = useParams();
-    const [itemName, ] = useState("")
-    const [itemImage, ] = useState("")
+    const [item, setItem] = useState<Item>({id: -1, name:"", category: "", image: "", price: -1, price_lower_limit: -1})
     const fetchItems = () => {
         fetch(server.concat('/items/' + itemId),
             {
@@ -17,15 +26,10 @@ export const Item: React.FC<{}> = () => {
                     'Accept': 'application/json'
                 },
             })
-            .then(response => {
-                console.log("res:",response)
-                response.json()
-            })
+            .then(response => response.json())
             .then(data => {
                 console.log('GET success:', data);
-                // setItemName(data.name);
-                // setItemCategory(data.category);
-                // setItemImage(data.image);
+                setItem(data)
             })
             .catch(error => {
                     console.error('GET error:', error)
@@ -54,12 +58,13 @@ export const Item: React.FC<{}> = () => {
 
     useEffect(() => {
         fetchItems();
-    });
+    }, []);
     return (
         <div>
-            <h2>{itemName}</h2>
-            {/*<div>{itemCategory}</div>*/}
-            <img src={fetchImage(itemImage)} alt={itemName + "の画像"}/>
+            <img src={fetchImage(item.image)} alt={item.name + "の画像"}/>
+            <h2>{item.name}</h2>
+            <div>商品カテゴリ: {item.category}</div>
+            <h2>{item.price} ¥ </h2>
 
             <Link to={"/"}>
                 <div>もどる</div>

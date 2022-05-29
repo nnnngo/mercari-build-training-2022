@@ -15,7 +15,6 @@ const server = process.env.REACT_APP_API_URL || 'http://127.0.0.1:9000';
 
 export const ItemList: React.FC<{}> = () => {
     const [items, setItems] = useState<Item[]>([])
-    console.log(process.env.API_URL)
     const fetchItems = () => {
         fetch(server.concat('/items'),
             {
