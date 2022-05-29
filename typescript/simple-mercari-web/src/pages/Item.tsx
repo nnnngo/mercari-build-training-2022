@@ -1,7 +1,7 @@
 import {Link, useParams} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 
-const server = process.env.API_URL || 'http://127.0.0.1:9000';
+const server = process.env.REACT_APP_API_URL || 'http://127.0.0.1:9000';
 
 export const Item: React.FC<{}> = () => {
     const {itemId} = useParams();

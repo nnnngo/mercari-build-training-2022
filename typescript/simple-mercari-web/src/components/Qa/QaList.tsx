@@ -7,7 +7,7 @@ interface Qa {
     qa_type_id: number;
 }
 
-const server = process.env.API_URL || 'http://127.0.0.1:9000';
+const server = process.env.REACT_APP_API_URL || 'http://127.0.0.1:9000';
 
 export const QaList: React.FC<{}> = () => {
     const [qas, setQas] = useState<Qa[]>([])
