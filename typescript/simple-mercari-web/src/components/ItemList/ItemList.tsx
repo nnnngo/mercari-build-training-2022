@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import {Listing} from "../Listing";
 import {Link} from "react-router-dom";
 
-
 interface Item {
     id: number;
     name: string;
