@@ -5,13 +5,14 @@ const server = process.env.API_URL || 'http://127.0.0.1:9000';
 
 export const Item: React.FC<{}> = () => {
     const {itemId} = useParams();
-    const [itemName, setItemName] = useState("")
-    const [itemCategory, setItemCategory] = useState("")
-    const [itemImage, setItemImage] = useState("")
+    const [item, setItem] = useState<ItemResponse>({id: -1, name:"", category: "", image: "", price: -1, price_lower_limit: -1})
+
+    useEffect(() => {
+        fetchItems();
+    }, []);
+
     const fetchItems = () => {
-        // fetch(server.concat('/items/' + itemId),
-        // todo: table参照できたらidをparamで渡す
-        fetch(server.concat('/items/' + 1),
+        fetch(server.concat('/items/' + itemId),
             {
                 method: 'GET',
                 mode: 'cors',
@@ -23,9 +24,7 @@ export const Item: React.FC<{}> = () => {
             .then(response => response.json())
             .then(data => {
                 console.log('GET success:', data);
-                setItemName(data.name);
-                setItemCategory(data.category);
-                setItemImage(data.image);
+                setItem(data)
             })
             .catch(error => {
                     console.error('GET error:', error)
@@ -52,14 +51,12 @@ export const Item: React.FC<{}> = () => {
         return server.concat('/image/').concat(image)
     }
 
-    useEffect(() => {
-        fetchItems();
-    });
     return (
         <div>
-            <h2>{itemName}</h2>
-            {/*<div>{itemCategory}</div>*/}
-            <img src={fetchImage(itemImage)} alt={itemName + "の画像"}/>
+            <img src={fetchImage(item.image)} alt={item.name + "の画像"}/>
+            <h2>{item.name}</h2>
+            <div>商品カテゴリ: {item.category}</div>
+            <h2>{item.price} ¥ </h2>
 
             <Link to={"/"}>
                 <div>もどる</div>
