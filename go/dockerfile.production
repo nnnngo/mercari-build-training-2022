@@ -21,5 +21,4 @@ WORKDIR /go/src/go/app
 
 RUN go build -o server
 
-ENTRYPOINT [ "/go/src/go/app" ]
-CMD ["/server"]
+CMD ["./server"]
