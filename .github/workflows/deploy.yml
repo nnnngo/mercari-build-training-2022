@@ -30,12 +30,12 @@ jobs:
       - name: Archive Production Artifact
         uses: actions/upload-artifact@main
         with:
-          name: build
+          name: frontend-build
           path: ./typescript/simple-mercari-web/build
 
   frontend-deploy-to-cloud-run:
     name: Frontend Deploy to Cloud Run
-    needs: build
+    needs: frontend-build
     runs-on: ubuntu-latest
     environment:
       name: Production
@@ -50,7 +50,7 @@ jobs:
       - name: Download Artifact
         uses: actions/download-artifact@main
         with:
-          name: build
+          name: frontend-build
           path: ./typescript/simple-mercari-web/.docker/build
 
       - name: Setup GCloud Auth
