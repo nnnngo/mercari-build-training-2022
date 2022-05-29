@@ -260,7 +260,7 @@ func (h Handler) GetItems(c echo.Context) error {
 			return itemsError.ErrGetItems.Wrap(err)
 		}
 
-		items.Items = append(items.Items, Item{Name: name, Category: category, Image: image.String, Price: price, PriceLowerLimit: priceLowerLimit, UserId: userId}) // image -> {"hoge", true}
+		items.Items = append(items.Items, Item{Id: id, Name: name, Category: category, Image: image.String, Price: price, PriceLowerLimit: priceLowerLimit, UserId: userId}) // image -> {"hoge", true}
 	}
 
 	return c.JSON(http.StatusOK, items)
