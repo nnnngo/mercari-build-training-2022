@@ -46,4 +46,4 @@ jobs:
               --platform=managed \
               --allow-unauthenticated \
               --quiet \
-              --memory 1024
+              --memory 4Gi
