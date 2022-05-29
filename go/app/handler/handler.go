@@ -260,7 +260,7 @@ func (h Handler) GetItems(c echo.Context) error {
 			return itemsError.ErrGetItems.Wrap(err)
 		}
 
-		items.Items = append(items.Items, Item{Name: name, Category: category, Image: image.String, Price: price, PriceLowerLimit: priceLowerLimit, UserId: userId}) // image -> {"hoge", true}
+		items.Items = append(items.Items, Item{Id: id, Name: name, Category: category, Image: image.String, Price: price, PriceLowerLimit: priceLowerLimit, UserId: userId}) // image -> {"hoge", true}
 	}
 
 	return c.JSON(http.StatusOK, items)
@@ -354,7 +354,34 @@ func (h Handler) AddItem(c echo.Context) error {
 	item.Category = c.FormValue("category")
 	item.Price, _ = strconv.Atoi(c.FormValue("price"))
 	item.PriceLowerLimit, _ = strconv.Atoi(c.FormValue("price_lower_limit"))
-	item.UserId, _ = strconv.Atoi(c.FormValue("user_id"))
+
+	// Check user_name
+	var user_name = c.FormValue("user_name")
+	var password = c.FormValue("password")
+	var ret int
+	// print(user_name, password)
+	err := h.DB.QueryRow("EXISTS (SELECT 1 FROM users WHERE name = $1)", user_name).Scan(&ret)
+	if err != nil && ret != 1 {
+		_, err := h.DB.Exec(
+			`INSERT INTO users (name, password) VALUES ($1, $2)`,
+			user_name, password)
+		if err != nil {
+			return usersError.ErrPostUser.Wrap(err)
+		}
+	}
+	// _, user_err2 := h.DB.Exec(
+	// 	INSERT INTO users (name, password) VALUES ($1, $2) WHERE NOT EXISTS (SELECT 1 FROM users WHERE id = $3)`,
+	// 	username, password, user_id)
+	// if user_err2 != nil {
+	// 	return usersError.ErrPostUser.Wrap(user_err)
+	// }
+
+	var user_id int
+	err2 := h.DB.QueryRow("SELECT EXISTS (SELECT id FROM users WHERE name = $1)", user_name).Scan(&user_id)
+	if err2 != nil {
+		return usersError.ErrFindUser.Wrap(err2)
+	}
+	item.UserId = user_id
 	file, err := c.FormFile("image")
 	if err != nil {
 		return itemsError.ErrPostItem.Wrap(err)
