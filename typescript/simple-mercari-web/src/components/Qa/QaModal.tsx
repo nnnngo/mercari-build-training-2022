@@ -8,6 +8,7 @@ export const QaModal = (props: { showQaModal: any; setShowQaModal: any; }) => {
         setIsNegotiate(false);
         setPriceCutModal(false);
     };
+    const [suggestPrice, setSuggestPrice] = useState(0); // 交渉額用
     const [showPriceCut, setPriceCutModal] = useState(false); // PriceCutコンポーネントの表示の状態を定義する
     const [isNegotiate, setIsNegotiate] = useState(false); // 値引き交渉中かどうかのステータス
     const [isSuccess, setIsSuccess] = useState(true); // 交渉成功かどうかのステータス
@@ -40,12 +41,12 @@ export const QaModal = (props: { showQaModal: any; setShowQaModal: any; }) => {
                         <>
                             { isSuccess ? (
                             <>
-                            <div>交渉成立</div>
+                            <div>交渉成立 {suggestPrice}</div>
                             <button onClick={closeModal}>閉じる</button>
                             </>
                             ):(
                             <>
-                            <div>交渉失敗</div>
+                            <div>交渉失敗 {suggestPrice}</div>
                             <button onClick={closeModal}>閉じる</button>
                             </>
                             )}
@@ -55,7 +56,7 @@ export const QaModal = (props: { showQaModal: any; setShowQaModal: any; }) => {
                                 {showPriceCut ? (
                                     // 値切りフェースの場合
                                     <>
-                                        <div><Negotiation showQaModal={props.showQaModal} setShowQaModal={props.setShowQaModal} showPriceCut={showPriceCut} setPriceCutModal={setPriceCutModal} isNegotiate={isNegotiate} setIsNegotiate={setIsNegotiate}/></div>
+                                        <div><Negotiation showQaModal={props.showQaModal} setShowQaModal={props.setShowQaModal} showPriceCut={showPriceCut} setPriceCutModal={setPriceCutModal} isNegotiate={isNegotiate} setIsNegotiate={setIsNegotiate} suggestPrice={suggestPrice} setSuggestPrice={setSuggestPrice}/></div>
                                     </>
                                 ) : (
                                     // QAフェーズの場合
