@@ -358,20 +358,24 @@ func (h Handler) AddItem(c echo.Context) error {
 	// Check user_name
 	var username = c.FormValue("user_name")
 	var password = c.FormValue("password")
-	var exist int
+	var nameExists int
+	var passExists int
+
 	// print(username, password)
-	err := h.DB.QueryRow(`EXISTS (SELECT * FROM users WHERE name = $1)`, username).Scan(&exist)
-	if err == nil && exist != 1 {
+	err := h.DB.QueryRow(`SELECT EXISTS (SELECT * FROM users WHERE name = $1)`, username).Scan(&nameExists)
+	if err == nil && nameExists != 1 {
 		_, err2 := h.DB.Exec(
 			`INSERT INTO users (name, password) VALUES ($1, $2)`,
 			username, password)
 		if err2 != nil {
 			return usersError.ErrPostUser.Wrap(err2)
 		}
+	} else if nameExists == 1 {
+		err2 := h.DB.QueryRow(`SELECT EXISTS (SELECT * FROM users WHERE password = $1)`, password).Scan(&passExists)
+		if err2 != nil {
+			return usersError.ErrPostUser.Wrap(err2)
+		}
 	}
-	// if err != nil {
-	// 	return usersError.ErrPostUser.Wrap(err)
-	// }
 
 	var user_id int
 	err3 := h.DB.QueryRow(`SELECT id FROM users WHERE name = $1`, username).Scan(&user_id)
