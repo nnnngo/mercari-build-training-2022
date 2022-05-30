@@ -361,12 +361,12 @@ func (h Handler) AddItem(c echo.Context) error {
 	var ret int
 	// print(user_name, password)
 	err := h.DB.QueryRow("EXISTS (SELECT 1 FROM users WHERE name = $1)", user_name).Scan(&ret)
-	if err != nil && ret != 1 {
-		_, err := h.DB.Exec(
+	if err == nil && ret != 1 {
+		_, err2 := h.DB.Exec(
 			`INSERT INTO users (name, password) VALUES ($1, $2)`,
 			user_name, password)
-		if err != nil {
-			return usersError.ErrPostUser.Wrap(err)
+		if err2 != nil {
+			return usersError.ErrPostUser.Wrap(err2)
 		}
 	}
 	// _, user_err2 := h.DB.Exec(
@@ -377,7 +377,7 @@ func (h Handler) AddItem(c echo.Context) error {
 	// }
 
 	var user_id int
-	err2 := h.DB.QueryRow("SELECT EXISTS (SELECT id FROM users WHERE name = $1)", user_name).Scan(&user_id)
+	err2 := h.DB.QueryRow("SELECT id FROM users WHERE name = $1", user_name).Scan(&user_id)
 	if err2 != nil {
 		return usersError.ErrFindUser.Wrap(err2)
 	}
