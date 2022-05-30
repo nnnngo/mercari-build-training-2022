@@ -5,11 +5,12 @@ import Negotiation from './Negotiation'
 export const QaModal = (props: { showQaModal: any; setShowQaModal: any; }) => {
     const closeModal = () => {
         props.setShowQaModal(false);
-        setIsContract(false);
+        setIsNegotiate(false);
         setPriceCutModal(false);
     };
     const [showPriceCut, setPriceCutModal] = useState(false); // PriceCutコンポーネントの表示の状態を定義する
-    const [isContract, setIsContract] = useState(false); // 値引き交渉成立かどうかのステータス
+    const [isNegotiate, setIsNegotiate] = useState(false); // 値引き交渉中かどうかのステータス
+    const [isSuccess, setIsSuccess] = useState(true); // 交渉成功かどうかのステータス
     const ShowPriceCutModal = () => {
         setPriceCutModal(true);
     };
@@ -34,18 +35,27 @@ export const QaModal = (props: { showQaModal: any; setShowQaModal: any; }) => {
                         padding: "10px",
                         borderRadius: "3px",
                     }}>
-                        {isContract ? (
-                            // 値引き交渉成立の場合
+
+                        {isNegotiate ? (
+                        <>
+                            { isSuccess ? (
                             <>
-                                <div>交渉成立</div>
-                                <button onClick={closeModal}>閉じる</button>
+                            <div>交渉成立</div>
+                            <button onClick={closeModal}>閉じる</button>
                             </>
+                            ):(
+                            <>
+                            <div>交渉失敗</div>
+                            <button onClick={closeModal}>閉じる</button>
+                            </>
+                            )}
+                        </>
                         ) : (
                             <>
                                 {showPriceCut ? (
                                     // 値切りフェースの場合
                                     <>
-                                        <div><Negotiation showQaModal={props.showQaModal} setShowQaModal={props.setShowQaModal} showPriceCut={showPriceCut} setPriceCutModal={setPriceCutModal} isContract={isContract} setIsContract={setIsContract}/></div>
+                                        <div><Negotiation showQaModal={props.showQaModal} setShowQaModal={props.setShowQaModal} showPriceCut={showPriceCut} setPriceCutModal={setPriceCutModal} isNegotiate={isNegotiate} setIsNegotiate={setIsNegotiate}/></div>
                                     </>
                                 ) : (
                                     // QAフェーズの場合

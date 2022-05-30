@@ -1,9 +1,9 @@
 import React, {useState} from 'react'
 
-const Negotiation = (props: { showQaModal: any; setShowQaModal: any; showPriceCut:any; setPriceCutModal:any; isContract:any; setIsContract:any;}) => {
+const Negotiation = (props: { showQaModal: any; setShowQaModal: any; showPriceCut:any; setPriceCutModal:any; isNegotiate:any; setIsNegotiate:any;}) => {
       const closeModal = () => {
           props.setShowQaModal(false);
-          props.setIsContract(false);
+          props.setIsNegotiate(false);
           props.setPriceCutModal(false);
       };
   const [ price, setPrice ] = useState(0);
@@ -13,12 +13,11 @@ const Negotiation = (props: { showQaModal: any; setShowQaModal: any; showPriceCu
    const handleSubmit = (event:React.MouseEvent) => {
    //    todo 金額の値を渡して条件分岐する
            //    成立していたらsetIsContractでvalueをtrue、しなければfalse
-   props.setIsContract(true)
+   props.setIsNegotiate(true)
    event.persist()
    event.preventDefault()
    console.log(price)
    }
-
 
 return (
     <>
