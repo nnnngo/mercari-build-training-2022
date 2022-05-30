@@ -2,7 +2,7 @@ import {Outlet} from 'react-router-dom';
 import React, {useState} from "react";
 import {QaModal} from "../components/Qa/QaModal";
 
-// Itemの親コンポーネント
+// Item,QaModalの親コンポーネント
 // function qaTest() {
 //     console.log("QAをここに作る")
 // }
@@ -42,7 +42,7 @@ function ParentItem() {
                     }} onClick={showModal}>QA
                     </div>
                 </div>
-                <QaModal showFlag={showQaModal} setShowQaModal={setShowQaModal} />
+                <QaModal showQaModal={showQaModal} setShowQaModal={setShowQaModal} />
                 {/*<QaModal showFlag={showQaModal} setShowQaModal={setShowQaModal} content="親から渡された値です。"/>*/}
             </div>
         </>

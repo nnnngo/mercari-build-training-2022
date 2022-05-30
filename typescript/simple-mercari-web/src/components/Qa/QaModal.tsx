@@ -2,26 +2,23 @@ import React, {useState} from "react";
 import {QaList} from "./QaList";
 import Negotiation from './Negotiation'
 
-export const QaModal = (props: { showFlag: any; setShowQaModal: any; }) => {
+export const QaModal = (props: { showQaModal: any; setShowQaModal: any; }) => {
     const closeModal = () => {
         props.setShowQaModal(false);
-        setIsContract(false);
+        setIsNegotiate(false);
         setPriceCutModal(false);
     };
+    const [suggestPrice, setSuggestPrice] = useState(0); // 交渉額用
     const [showPriceCut, setPriceCutModal] = useState(false); // PriceCutコンポーネントの表示の状態を定義する
-    const [isContract, setIsContract] = useState(false); // 値引き交渉成立かどうかのステータス
+    const [isNegotiate, setIsNegotiate] = useState(false); // 値引き交渉中かどうかのステータス
+    const [isSuccess, setIsSuccess] = useState(true); // 交渉成功かどうかのステータス
     const ShowPriceCutModal = () => {
         setPriceCutModal(true);
     };
 
-    const setNegotiation = () => {
-        //    todo 金額の値を渡して条件分岐する
-        //    成立していたらsetIsContractでvalueをtrue、しなければfalse
-        setIsContract(true)
-    }
     return (
         <>
-            {props.showFlag ? ( // showFlagがtrueだったらModalを表示する
+            {props.showQaModal ? ( // showFlagがtrueだったらModalを表示する
                 <div id="overlay" style={{
                     position: "fixed",
                     top: 0,
@@ -39,27 +36,34 @@ export const QaModal = (props: { showFlag: any; setShowQaModal: any; }) => {
                         padding: "10px",
                         borderRadius: "3px",
                     }}>
-                        {isContract ? (
-                            // 値引き交渉成立の場合
+
+                        {isNegotiate ? (
+                        <>
+                            { isSuccess ? (
                             <>
-                                <div>交渉成立</div>
-                                <button onClick={closeModal}>閉じる</button>
+                            <div>交渉成立 {suggestPrice}</div>
+                            <button onClick={closeModal}>閉じる</button>
                             </>
+                            ):(
+                            <>
+                            <div>交渉失敗 {suggestPrice}</div>
+                            <button onClick={closeModal}>閉じる</button>
+                            </>
+                            )}
+                        </>
                         ) : (
                             <>
                                 {showPriceCut ? (
                                     // 値切りフェースの場合
                                     <>
-                                        <div><Negotiation/></div>
-                                        <button onClick={closeModal}>閉じる</button>
-                                        <button onClick={setNegotiation}>交渉する</button>
+                                        <div><Negotiation showQaModal={props.showQaModal} setShowQaModal={props.setShowQaModal} showPriceCut={showPriceCut} setPriceCutModal={setPriceCutModal} isNegotiate={isNegotiate} setIsNegotiate={setIsNegotiate} suggestPrice={suggestPrice} setSuggestPrice={setSuggestPrice}/></div>
                                     </>
                                 ) : (
                                     // QAフェーズの場合
                                     <>
                                         <div><QaList/></div>
                                         <button onClick={closeModal}>閉じる</button>
-                                        <button onClick={ShowPriceCutModal}>値切り交渉へ</button>
+                                        <button onClick={ShowPriceCutModal}>値段交渉へ</button>
                                     </>
                                 )}
                             </>
