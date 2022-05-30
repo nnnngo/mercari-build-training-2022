@@ -11,13 +11,25 @@ const Negotiation = (props: { showQaModal: any; setShowQaModal: any; showPriceCu
     setPrice(event.target.value)
     }
    const handleSubmit = (event:React.MouseEvent) => {
-   //    todo 金額の値を渡して条件分岐する
+    event.persist()
+    event.preventDefault()
+    // バリデーション
+    const error = Object.values(props).some((value) => {
+      console.log(price);
+      return Number(price) == 0;
+    });
+      
+    if(error) {
+     alert('未入力項目があります');
+    } else {
+      alert('送信します');
+       //    todo 金額の値を渡して条件分岐する
            //    成立していたらsetIsContractでvalueをtrue、しなければfalse
-   props.setIsNegotiate(true)
-   event.persist()
-   event.preventDefault()
-   props.setIsSuccess(price>=props.price_lower_limit)
-   props.setNewPrice(price)
+      props.setIsNegotiate(true)
+      
+      props.setIsSuccess(price>=props.price_lower_limit)
+      props.setNewPrice(price)
+    }
    }
   const keyDownHandler = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.code === "Enter") {
