@@ -53,7 +53,7 @@ export const Listing: React.FC<{}> = () => {
       <form onSubmit={onSubmit}>
         <div>
             <label>UserName</label>
-            <input type='text' name='user_name' id='user_id' placeholder='user_id' onChange={onValueChange} required/>
+            <input type='text' name='user_name' id='user_name' placeholder='user_name' onChange={onValueChange} required/>
             <label>Password</label>
             <input type='text' name='password' id='password' placeholder='password' onChange={onValueChange}/>
             <br></br>
