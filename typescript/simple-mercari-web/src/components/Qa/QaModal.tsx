@@ -81,8 +81,8 @@ export const QaModal = (props: { showQaModal: any; setShowQaModal: any; }) => {
                             <>
                             <h2>交渉成立！</h2>
                             <div>あなたはこの商品を ¥{newPrice} で購入可能です。</div>
-                            <button onClick={closeModal}>閉じる</button>
                             <br/>
+                            <button onClick={closeModal}>閉じる</button>
                             </>
                             ):(
                             <>
