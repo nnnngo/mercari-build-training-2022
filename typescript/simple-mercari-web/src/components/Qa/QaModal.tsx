@@ -16,6 +16,7 @@ export const QaModal = (props: { showQaModal: any; setShowQaModal: any; }) => {
     const [showPriceCut, setPriceCutModal] = useState(false); // PriceCutコンポーネントの表示の状態を定義する
     const [isNegotiate, setIsNegotiate] = useState(false); // 値引き交渉中かどうかのステータス
     const [isSuccess, setIsSuccess] = useState(false); // 交渉成功かどうかのステータス
+    const [newPrice, setNewPrice] = useState(0) // 交渉成立後の値段
     const closeModal = () => {
         props.setShowQaModal(false);
         setIsNegotiate(false);
@@ -78,12 +79,16 @@ export const QaModal = (props: { showQaModal: any; setShowQaModal: any; }) => {
                         <>
                             { isSuccess ? (
                             <>
-                            <div>交渉成立</div>
+                            <h2>交渉成立！</h2>
+                            <div>あなたはこの商品を ¥{newPrice} で購入可能です。</div>
                             <button onClick={closeModal}>閉じる</button>
+                            <br/>
                             </>
                             ):(
                             <>
-                            <div>交渉失敗</div>
+                            <h2>交渉失敗</h2>
+                            <div>この商品を ¥{newPrice} にはお値下げできませんでした。</div>
+                            <br/>
                             <button onClick={closeModal}>閉じる</button>
                             </>
                             )}
@@ -103,6 +108,8 @@ export const QaModal = (props: { showQaModal: any; setShowQaModal: any; }) => {
                                         price_lower_limit={item.price_lower_limit}
                                         isSuccess={isSuccess}
                                         setIsSuccess={setIsSuccess}
+                                        newPrice={newPrice}
+                                        setNewPrice={setNewPrice}
                                         /></div>
                                     </>
                                 ) : (

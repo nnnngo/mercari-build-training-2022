@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-const Negotiation = (props: { showQaModal: any; setShowQaModal: any; showPriceCut:any; setPriceCutModal:any; isNegotiate:any; setIsNegotiate:any; price_lower_limit:any; isSuccess: any; setIsSuccess: any;}) => {
+const Negotiation = (props: { showQaModal: any; setShowQaModal: any; showPriceCut:any; setPriceCutModal:any; isNegotiate:any; setIsNegotiate:any; price_lower_limit:any; isSuccess: any; setIsSuccess: any; newPrice: any; setNewPrice: any;}) => {
       const closeModal = () => {
           props.setShowQaModal(false);
           props.setIsNegotiate(false);
@@ -16,9 +16,8 @@ const Negotiation = (props: { showQaModal: any; setShowQaModal: any; showPriceCu
    props.setIsNegotiate(true)
    event.persist()
    event.preventDefault()
-   console.log(price)
    props.setIsSuccess(price>=props.price_lower_limit)
-   console.log("isSuccess",props.isSuccess)
+   props.setNewPrice(price)
    }
 
 return (
