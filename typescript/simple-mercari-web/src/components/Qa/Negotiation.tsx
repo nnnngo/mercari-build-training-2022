@@ -16,7 +16,7 @@ const Negotiation = (props: { showQaModal: any; setShowQaModal: any; showPriceCu
     // バリデーション
     const error = Object.values(props).some((value) => {
       console.log(price);
-      return Number(price) == 0;
+      return Number(price) === 0;
     });
       
     if(error) {
