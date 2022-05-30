@@ -416,8 +416,6 @@ func (h Handler) AddItem(c echo.Context) error {
 
 	c.Logger().Infof("Receive item: %s which belongs to the category %s. image name is %s", item.Name, item.Category, item.Image)
 
-	message := fmt.Sprintf("item received: %s which belongs to the category %s. image name is %s", item.Name, item.Category, item.Image)
-
 	// Save Image to ./image
 	imgFile, err := os.Create(path.Join(ImgDir, item.Image))
 	if err != nil {
@@ -435,6 +433,44 @@ func (h Handler) AddItem(c echo.Context) error {
 	if err != nil {
 		return itemsError.ErrPostItem.Wrap(err)
 	}
+
+	message := fmt.Sprintf("item received: %s Posted!!", item.Name)
+
+	// Create Qa
+	var item_id int
+	var question1 = c.FormValue("question1")
+	var answer1 = c.FormValue("answer1")
+
+	// Exec Query
+	err = h.DB.QueryRow(`SELECT id FROM items WHERE name = $1 AND user_id = $2`, item.Name, item.UserId).Scan(&item_id)
+	if err != nil {
+		c.Logger().Error(err.Error())
+		return usersError.ErrPostUser.Wrap(err)
+	}
+
+	_, err = h.DB.Exec(`INSERT INTO qas (item_id, question, answer, qa_type_id) VALUES (?, ?, ?, ?)`, item_id, question1, answer1, 1)
+	if err != nil {
+		c.Logger().Error(err.Error())
+		return usersError.ErrPostUser.Wrap(err)
+	}
+
+	var question2 = c.FormValue("question2")
+	var answer2 = c.FormValue("answer2")
+	_, err = h.DB.Exec(`INSERT INTO qas (item_id, question, answer, qa_type_id) VALUES (?, ?, ?, ?)`, item_id, question2, answer2, 1)
+	if err != nil {
+		c.Logger().Error(err.Error())
+		return usersError.ErrPostUser.Wrap(err)
+	}
+
+	var question3 = c.FormValue("question3")
+	var answer3 = c.FormValue("answer3")
+	_, err = h.DB.Exec(`INSERT INTO qas (item_id, question, answer, qa_type_id) VALUES (?, ?, ?, ?)`, item_id, question3, answer3, 1)
+	if err != nil {
+		c.Logger().Error(err.Error())
+		return usersError.ErrPostUser.Wrap(err)
+	}
+
+	message = fmt.Sprintf("item received: %s with QAs Posted!!", item.Name)
 
 	res := Response{Message: message}
 
