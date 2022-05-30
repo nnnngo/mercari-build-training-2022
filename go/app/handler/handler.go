@@ -356,30 +356,27 @@ func (h Handler) AddItem(c echo.Context) error {
 	item.PriceLowerLimit, _ = strconv.Atoi(c.FormValue("price_lower_limit"))
 
 	// Check user_name
-	var user_name = c.FormValue("user_name")
+	var username = c.FormValue("user_name")
 	var password = c.FormValue("password")
-	var ret int
-	// print(user_name, password)
-	err := h.DB.QueryRow("EXISTS (SELECT 1 FROM users WHERE name = $1)", user_name).Scan(&ret)
-	if err == nil && ret != 1 {
+	var exist int
+	// print(username, password)
+	err := h.DB.QueryRow(`EXISTS (SELECT * FROM users WHERE name = $1)`, username).Scan(&exist)
+	if err == nil && exist != 1 {
 		_, err2 := h.DB.Exec(
 			`INSERT INTO users (name, password) VALUES ($1, $2)`,
-			user_name, password)
+			username, password)
 		if err2 != nil {
 			return usersError.ErrPostUser.Wrap(err2)
 		}
 	}
-	// _, user_err2 := h.DB.Exec(
-	// 	INSERT INTO users (name, password) VALUES ($1, $2) WHERE NOT EXISTS (SELECT 1 FROM users WHERE id = $3)`,
-	// 	username, password, user_id)
-	// if user_err2 != nil {
-	// 	return usersError.ErrPostUser.Wrap(user_err)
+	// if err != nil {
+	// 	return usersError.ErrPostUser.Wrap(err)
 	// }
 
 	var user_id int
-	err2 := h.DB.QueryRow("SELECT id FROM users WHERE name = $1", user_name).Scan(&user_id)
-	if err2 != nil {
-		return usersError.ErrFindUser.Wrap(err2)
+	err3 := h.DB.QueryRow(`SELECT id FROM users WHERE name = $1`, username).Scan(&user_id)
+	if err3 != nil {
+		return usersError.ErrFindUser.Wrap(err3)
 	}
 	item.UserId = user_id
 	file, err := c.FormFile("image")
