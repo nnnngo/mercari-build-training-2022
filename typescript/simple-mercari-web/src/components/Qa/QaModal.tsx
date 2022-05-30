@@ -12,6 +12,7 @@ const server = process.env.REACT_APP_API_URL || 'http://127.0.0.1:9000';
         price: number;
         price_lower_limit: number;
     }
+
 export const QaModal = (props: { showQaModal: any; setShowQaModal: any; }) => {
     const [showPriceCut, setPriceCutModal] = useState(false); // PriceCutコンポーネントの表示の状態を定義する
     const [isNegotiate, setIsNegotiate] = useState(false); // 値引き交渉中かどうかのステータス
@@ -115,7 +116,7 @@ export const QaModal = (props: { showQaModal: any; setShowQaModal: any; }) => {
                                 ) : (
                                     // QAフェーズの場合
                                     <>
-                                        <div><QaList/></div>
+                                        <div><QaList item_id={itemId || ""}/></div>
                                         <button onClick={closeModal}>閉じる</button>
                                         <button onClick={showPriceCutModal}>値段交渉へ</button>
                                     </>

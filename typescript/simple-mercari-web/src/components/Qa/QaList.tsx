@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+
 interface Qa {
     id: number;
     item_id: number;
@@ -7,13 +8,17 @@ interface Qa {
     qa_type_id: number;
 }
 
+interface Props {
+    item_id: string
+}
+
 const server = process.env.REACT_APP_API_URL || 'http://127.0.0.1:9000';
 
-export const QaList: React.FC<{}> = () => {
+export const QaList = (props : Props) => {
     const [qas, setQas] = useState<Qa[]>([])
     const fetchQas = () => {
         // todo item_id取得
-        fetch(server.concat('/qas/333'),
+        fetch(server.concat('/qas/'.concat(props.item_id)),
             {
                 method: 'GET',
                 mode: 'cors',
