@@ -11,6 +11,12 @@ export const Listing: React.FC<{}> = () => {
     image: new File([new Blob()], "", {lastModified: 0}),
     price: "0",
     price_lower_limit: "0",
+    question1 : "",
+    answer1: "",
+    question2 : "",
+    answer2: "",
+    question3 : "",
+    answer3: "",
   };
   const [values, setValues] = useState(initialState);
   
@@ -34,6 +40,13 @@ export const Listing: React.FC<{}> = () => {
     data.append('image', values.image)
     data.append('price', values.price)
     data.append('price_lower_limit', values.price_lower_limit)
+    data.append('question1', values.question1)
+    data.append('answer1', values.answer1)
+    data.append('question2', values.question2)
+    data.append('answer2', values.answer2)
+    data.append('question3', values.question3)
+    data.append('answer3', values.answer3)
+
 
     fetch(server.concat('/items'), {
       method: 'POST',
@@ -69,6 +82,21 @@ export const Listing: React.FC<{}> = () => {
             <input type='text' name='price' id='price' placeholder='price' onChange={onValueChange}/>
             <label>PriceLowerLimit</label>
             <input type='text' name='price_lower_limit' id='price_lower_limit' placeholder='price_lower_limit' onChange={onValueChange}/>
+            <br></br>
+            <label>Question1</label>
+            <input type='text' name='question1' id='question1' placeholder='question1' onChange={onValueChange}/>
+            <label>Answer1</label>
+            <input type='text' name='answer1' id='answer1' placeholder='answer1' onChange={onValueChange}/>
+            <br></br>
+            <label>Question2</label>
+            <input type='text' name='question2' id='question2' placeholder='question2' onChange={onValueChange}/>
+            <label>Answer2</label>
+            <input type='text' name='answer2' id='answer2' placeholder='answer2' onChange={onValueChange}/>
+            <br></br>
+            <label>Question3</label>
+            <input type='text' name='question3' id='question3' placeholder='question3' onChange={onValueChange}/>
+            <label>Answer3</label>
+            <input type='text' name='answer3' id='answer3' placeholder='answer3' onChange={onValueChange}/>
             <br></br>
             <button type='submit'>List this item</button>
         </div>
